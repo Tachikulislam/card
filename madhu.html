@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Happy 23rd Birthday Madhu 💖</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+
+<style>
+*{margin:0;padding:0;box-sizing:border-box;}
+
+body{
+font-family:'Poppins',sans-serif;
+background:linear-gradient(135deg,#ffd1dc,#ffe4e1,#fff0f5);
+min-height:100vh;
+display:flex;
+align-items:center;
+justify-content:center;
+padding:20px;
+color:#444;
+}
+
+.container{
+text-align:center;
+max-width:1000px;
+width:100%;
+}
+
+h1{
+font-family:'Dancing Script',cursive;
+font-size:4rem;
+color:#d63384;
+margin-bottom:10px;
+}
+
+.subtitle{
+font-size:1.2rem;
+color:#777;
+}
+
+.click-area{
+background:white;
+border-radius:25px;
+padding:40px;
+margin:30px auto;
+box-shadow:0 10px 30px rgba(0,0,0,0.1);
+}
+
+.click-button{
+background:linear-gradient(45deg,#ffb6c1,#ff69b4);
+border:none;
+padding:18px 40px;
+font-size:1.4rem;
+border-radius:40px;
+cursor:pointer;
+color:white;
+transition:0.3s;
+}
+
+.click-button:hover{transform:scale(1.05);}
+
+.counter{
+margin-top:15px;
+color:#ff69b4;
+font-weight:600;
+}
+
+.animation-area{
+height:380px;
+margin:30px auto;
+background:rgba(255,255,255,0.7);
+border-radius:20px;
+position:relative;
+overflow:hidden;
+}
+
+/* IMAGE */
+#madhuPic{
+display:none;
+position:absolute;
+top:50%;
+left:50%;
+transform:translate(-50%,-50%) scale(0);
+width:220px;
+height:220px;
+border-radius:50%;
+object-fit:cover;
+z-index:10;
+animation: popIn 1.2s ease forwards;
+box-shadow:0 0 35px rgba(255,105,180,0.8);
+}
+
+@keyframes popIn{
+0%{transform:translate(-50%,-50%) scale(0);opacity:0;}
+70%{transform:translate(-50%,-50%) scale(1.15);opacity:1;}
+100%{transform:translate(-50%,-50%) scale(1);opacity:1;}
+}
+
+.glow{
+animation: glowPulse 2s infinite alternate;
+}
+
+@keyframes glowPulse{
+from{box-shadow:0 0 20px #ff69b4;}
+to{box-shadow:0 0 45px #ff1493;}
+}
+
+/* MESSAGE */
+.message-box{
+display:none;
+background:white;
+padding:30px;
+border-radius:20px;
+box-shadow:0 10px 25px rgba(0,0,0,0.1);
+}
+
+.message-box h2{
+color:#d63384;
+margin-bottom:15px;
+}
+
+.flower,.heart,.butterfly{
+position:absolute;
+font-size:2rem;
+opacity:0;
+}
+
+@keyframes floatUp{
+0%{transform:translateY(0);opacity:1;}
+100%{transform:translateY(-380px);opacity:0;}
+}
+
+footer{
+margin-top:30px;
+color:#777;
+}
+
+/* =========================
+   RESPONSIVE FIX (ADDED)
+   ========================= */
+
+/* Mobile */
+@media (max-width:480px){
+body{padding:15px;}
+h1{font-size:2.4rem;}
+.subtitle{font-size:1rem;}
+.click-area{padding:20px;margin:20px auto;}
+.click-button{font-size:1.1rem;padding:14px 30px;}
+.animation-area{height:260px;}
+#madhuPic{width:150px;height:150px;}
+.message-box{padding:20px;font-size:0.95rem;}
+footer{font-size:0.85rem;}
+}
+
+/* Tablet */
+@media (max-width:768px){
+h1{font-size:3rem;}
+.animation-area{height:320px;}
+#madhuPic{width:180px;height:180px;}
+}
+</style>
+</head>
+
+<body>
+
+<div class="container">
+
+<h1>Happy Birthday, Madhu 💖</h1>
+<p class="subtitle">Tap the button and wait for magic ✨</p>
+
+<div class="click-area">
+<button class="click-button" id="magicButton">🎀 Tap for Surprise 🎀</button>
+<p class="counter">Taps: <span id="clickCount">0</span></p>
+</div>
+
+<div class="animation-area" id="animationArea">
+<img id="madhuPic" src="madhu.jpg" alt="Madhu">
+</div>
+
+<div class="message-box" id="messageBox">
+<h2>For You 💕</h2>
+<p>
+23 looks absolutely beautiful on you 🌸<br>
+Your smile makes everything brighter ✨
+</p>
+<p>
+Stay happy, stay magical 💫<br>
+Happy 23rd Birthday 🎂🎉
+</p>
+</div>
+
+<footer>
+Made with 💖 just for Madhu
+</footer>
+
+<audio id="bgMusic" src="soft-music.mp3"></audio>
+
+</div>
+
+<script>
+const btn = document.getElementById("magicButton");
+const area = document.getElementById("animationArea");
+const msg = document.getElementById("messageBox");
+const countEl = document.getElementById("clickCount");
+const pic = document.getElementById("madhuPic");
+
+let count = 0;
+
+const flowers = ['🌸','🌷','🌼','💐'];
+const hearts = ['💖','💕'];
+const butterflies = ['🦋'];
+
+btn.onclick = () => {
+count++;
+countEl.textContent = count;
+
+spawn(flowers,6);
+spawn(hearts,5);
+spawn(butterflies,3);
+
+if(count === 3){
+msg.style.display = "block";
+}
+
+if(count === 23){
+pic.style.display = "block";
+pic.classList.add("glow");
+alert("🎉 Happy 23rd Birthday Madhu 💖");
+continuousMagic();
+}
+
+playMusic();
+};
+
+function spawn(arr,num){
+for(let i=0;i<num;i++){
+const el = document.createElement("div");
+el.innerHTML = arr[Math.floor(Math.random()*arr.length)];
+el.style.left = Math.random()*100 + "%";
+el.style.top = "100%";
+el.style.animation = "floatUp 4s ease forwards";
+area.appendChild(el);
+setTimeout(()=>el.remove(),4000);
+}
+}
+
+function continuousMagic(){
+setInterval(()=>{
+spawn(flowers,6);
+spawn(hearts,6);
+spawn(butterflies,4);
+},1500);
+}
+
+function playMusic(){
+const m = document.getElementById("bgMusic");
+if(m){
+m.volume = 0.4;
+m.play();
+}
+}
+</script>
+
+</body>
+</html>
